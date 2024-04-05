@@ -1,40 +1,51 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
+-- toggle project tree
 map("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
+
+-- open new terminal in vsplit
 map("n", "<C-n>", ":vsp | terminal<CR>i", opts)
 
+-- fuzzy search for files
 map("n", "ff", ":Telescope find_files<CR>", opts)
-map("n", "qq", ":q<CR>", opts)
+
+-- exit terminal
 map("t", "<Esc>", [[<C-\><C-n>]], opts)
 
+-- resize window
 map("n", "<C-S-Up>", ":resize -1<CR>", opts)
 map("n", "<C-S-Down>", ":resize +1<CR>", opts)
 map("n", "<C-S-Left>", ":vertical resize -1<CR>", opts)
 map("n", "<C-S-Right>", ":vertical resize +1<CR>", opts)
 
-map("n", "<S-Left>", "<Esc>v<Left>", opts)
-map("n", "<S-Right>", "<Esc>v<Right>", opts)
-map("n", "<S-Up>", "<Esc>v<Up>", opts)
-map("n", "<S-Down>", "<Esc>v<Down>", opts)
-map("n", "<S-End>", "<Esc>v<End>", opts)
-
+-- move cursor to window
 map("n", "<A-Up>", "<C-w>k", opts)
 map("n", "<A-Down>", "<C-w>j", opts)
 map("n", "<A-Left>", "<C-w>h", opts)
 map("n", "<A-Right>", "<C-w>l", opts)
 
-map("i", "<S-Left>", "<Esc>v<Left>", opts)
-map("i", "<S-Right>", "<Esc>v<Right>", opts)
-map("i", "<S-Up>", "<Esc>v<Up>", opts)
-map("i", "<S-Down>", "<Esc>v<Down>", opts)
-map("i", "<S-End>", "<Esc>v<End>", opts)
+-- start highlight
+map("n", "<S-Left>", "v<Left>", opts)
+map("n", "<S-Right>", "v<Right>", opts)
+map("n", "<S-Up>", "v<Up>", opts)
+map("n", "<S-Down>", "v<Down>", opts)
+map("n", "<S-End>", "v<End>", opts)
 
+-- start highlight
+map("i", "<S-Left>", "<Esc><Left>", opts)
+map("i", "<S-Right>", "<Esc><Right>", opts)
+map("i", "<S-Up>", "<Esc><Up>", opts)
+map("i", "<S-Down>", "<Esc><Down>", opts)
+map("i", "<S-End>", "<Esc><End>", opts)
+
+-- continue highlight
 map("x", "<S-Left>", "<Left>", opts)
 map("x", "<S-Right>", "<Right>", opts)
 map("x", "<S-Up>", "<Up>", opts)
 map("x", "<S-Down>", "<Down>", opts)
 
+-- break highlight
 map("x", "<Left>", "<Esc><Left>", opts)
 map("x", "<Right>", "<Esc><Right>", opts)
 map("x", "<Up>", "<Esc><Up>", opts)
