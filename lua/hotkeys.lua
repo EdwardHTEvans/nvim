@@ -58,10 +58,11 @@ vim.api.nvim_create_user_command(
     {}
 )
 
-map('n', '<C-b>', ':lua require(\'dap\').toggle_breakpoint()<CR>', opts)
-map('n', '<C-n>', ':lua require(\'dap\').step_over()<CR>', opts)
-map('n', '<C-m>', ':lua require(\'dap\').step_into()<CR>', opts)
-map('n', '<C-j>', ':lua require(\'dap\').step_out()<CR>', opts)
-map('n', '<C-k>', ':lua require(\'dap\').repl.open()<CR>', opts)
-map('n', '<C-l>', ':lua require(\'dap\').repl.close()<CR>', opts)
-
+map('n', '<C-A-b>', ':lua require(\'dap\').toggle_breakpoint()<CR>', opts)
+map('n', '<C-A-n>', ':lua require(\'dap\').step_over()<CR>', opts)
+map('n', '<C-A-m>', ':lua require(\'dap\').step_into()<CR>', opts)
+map('n', '<C-A-j>', ':lua require(\'dap\').step_out()<CR>', opts)
+map('n', '<C-A-k>', ':lua require(\'dap\').repl.open()<CR>', opts)
+map('n', '<C-A-l>', ':lua require(\'dap\').repl.close()<CR>', opts)
+map('n', '<C-A-c>', ':lua require(\'dap\').continue()<CR>', opts)
+map('n', '<C-A-x>', ':lua require(\'dap\').close()<CR>', opts)
