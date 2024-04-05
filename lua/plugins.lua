@@ -40,16 +40,21 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-	use ("wbthomason/packer.nvim") -- Have packer manage itself	
+	use("wbthomason/packer.nvim") -- Have packer manage itself
 
-  -- Colour
-	use ("rebelot/kanagawa.nvim")
+	-- Colour
+	use("rebelot/kanagawa.nvim")
 
-	use ("nvim-lua/plenary.nvim")
-	use ("nvim-telescope/telescope.nvim")
-	use {'nvim-tree/nvim-tree.lua'}
+	-- file browsing
+	use("nvim-lua/plenary.nvim")
+	use("nvim-telescope/telescope.nvim")
+	use({ "nvim-tree/nvim-tree.lua" })
 
-  use("neovim/nvim-lspconfig")
+	-- formatting
+	use("stevearc/conform.nvim")
+
+	-- language server
+	use("neovim/nvim-lspconfig")
 
 	-- autocompletion
 	use("hrsh7th/nvim-cmp") -- completion plugin
@@ -61,9 +66,14 @@ return packer.startup(function(use)
 	use("saadparwaiz1/cmp_luasnip") -- for autocompletion
 	use("rafamadriz/friendly-snippets") -- useful snippets
 
-  -- debugging
-  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
-
+	-- debugging
+	use({
+		"rcarriga/nvim-dap-ui",
+		requires = {
+			"mfussenegger/nvim-dap",
+			"nvim-neotest/nvim-nio",
+		},
+	})
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
