@@ -14,7 +14,7 @@ vim.opt.expandtab = true
 
 vim.opt.number = true
 
-vim.cmd("colorscheme kanagawa-wave")
+vim.cmd("colorscheme catppuccin-mocha")
 
 require("plugins")
 
