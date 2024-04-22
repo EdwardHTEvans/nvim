@@ -44,10 +44,15 @@ return packer.startup(function(use)
 
 	-- Colour
 	use("rebelot/kanagawa.nvim")
-  use { "catppuccin/nvim", as = "catppuccin" }
+	use({ "catppuccin/nvim", as = "catppuccin" })
 	-- file browsing
 	use("nvim-lua/plenary.nvim")
-	use("nvim-telescope/telescope.nvim")
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.6",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
+
 	use({ "nvim-tree/nvim-tree.lua" })
 
 	-- formatting

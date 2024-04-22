@@ -9,6 +9,7 @@ map("n", "<C-n>", ":vsp | terminal<CR>i", opts)
 
 -- fuzzy search for files
 map("n", "ff", ":Telescope find_files<CR>", opts)
+map("n", "fg", ":Telescope live_grep<CR>", opts)
 
 -- exit terminal
 map("t", "<Esc>", [[<C-\><C-n>]], opts)
@@ -82,4 +83,4 @@ map("n", "<C-A-j>", ":lua require('dap').step_out()<CR>", opts)
 map("n", "<C-A-k>", ":lua require('dap').repl.open()<CR>", opts)
 map("n", "<C-A-l>", ":lua require('dap').repl.close()<CR>", opts)
 map("n", "<C-A-c>", ":lua require('dap').continue()<CR>", opts)
-map("n", "<C-A-x>", ":lua require('dap').close()<CR>", opts)
+map("n", "<C-A-v>", ":lua require('dap').pause()<CR>", opts)
