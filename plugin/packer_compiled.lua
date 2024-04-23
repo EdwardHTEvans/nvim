@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/home/e.evans/.local/share/nvim/site/pack/packer/start/conform.nvim",
     url = "https://github.com/stevearc/conform.nvim"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/home/e.evans/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/e.evans/.local/share/nvim/site/pack/packer/start/friendly-snippets",

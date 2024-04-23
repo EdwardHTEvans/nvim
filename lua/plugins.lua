@@ -58,6 +58,9 @@ return packer.startup(function(use)
 	-- formatting
 	use("stevearc/conform.nvim")
 
+  -- git diff
+  use("sindrets/diffview.nvim")
+
 	-- language server
 	use("neovim/nvim-lspconfig")
 
