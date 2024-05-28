@@ -10,6 +10,7 @@ map("n", "<C-n>", ":vsp | terminal<CR>i", opts)
 -- fuzzy search for files
 map("n", "ff", ":Telescope find_files<CR>", opts)
 map("n", "fg", ":Telescope live_grep<CR>", opts)
+map("n", "fs", ":Telescope grep_string<CR>", opts)
 
 -- exit terminal
 map("t", "<Esc>", [[<C-\><C-n>]], opts)
@@ -80,9 +81,7 @@ vim.api.nvim_create_user_command("Debug", function()
 end, {})
 
 -- lsp hotkeys
-map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+--   added on attach
 
 -- dap hotkeys
 map("n", "<C-A-b>", ":lua require('dap').toggle_breakpoint()<CR>", opts)
