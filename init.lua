@@ -37,5 +37,13 @@ require("nvim-tree").setup({
 require("nvim-cmp")
 require("hotkeys")
 require("conform_init")
-require("lspconfig").clangd.setup({})
+lspconfig = require("lspconfig")
+lspconfig["clangd"].setup({})
+lspconfig["vhdl_ls"].setup({
+  on_attach = on_attach,
+  root_dir = function()
+    return vim.fn.getcwd()
+  end,
+  capabilities = capabilities
+})
 require("dap_init")

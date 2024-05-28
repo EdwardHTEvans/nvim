@@ -53,16 +53,18 @@ return packer.startup(function(use)
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 
-	use({ "nvim-tree/nvim-tree.lua" })
+	use("nvim-tree/nvim-tree.lua")
 
 	-- formatting
 	use("stevearc/conform.nvim")
 
-  -- git diff
-  use("sindrets/diffview.nvim")
+	-- git diff
+	use("sindrets/diffview.nvim")
 
 	-- language server
 	use("neovim/nvim-lspconfig")
+	use("nvim-treesitter/nvim-treesitter")
+	use("nvimdev/lspsaga.nvim")
 
 	-- autocompletion
 	use("hrsh7th/nvim-cmp") -- completion plugin

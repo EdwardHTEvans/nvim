@@ -62,6 +62,9 @@ map("n", "<C-z>", "u", opts)
 map("i", "<C-v>", "<Esc>P", opts)
 map("i", "<C-z>", "<Esc>u", opts)
 
+map("n", "<C-A-Up>", "guaw", opts)
+map("n", "<C-A-Down>", "gUaw", opts)
+
 map("n", "<A-f>", ":lua require('conform').format()<CR>", opts)
 
 vim.keymap.set({ "n", "v" }, "<leader>l", function()
