@@ -79,6 +79,12 @@ vim.api.nvim_create_user_command("Debug", function()
 	require("dap").continue()
 end, {})
 
+-- lsp hotkeys
+map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+
+-- dap hotkeys
 map("n", "<C-A-b>", ":lua require('dap').toggle_breakpoint()<CR>", opts)
 map("n", "<C-A-n>", ":lua require('dap').step_over()<CR>", opts)
 map("n", "<C-A-m>", ":lua require('dap').step_into()<CR>", opts)
