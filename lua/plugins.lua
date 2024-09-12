@@ -56,9 +56,6 @@ return packer.startup(function(use)
 
 	use("nvim-tree/nvim-tree.lua")
 
-	-- formatting
-	use("stevearc/conform.nvim")
-
 	-- git diff
 	use("sindrets/diffview.nvim")
 
@@ -85,6 +82,13 @@ return packer.startup(function(use)
 			"nvim-neotest/nvim-nio",
 		},
 	})
+
+  -- rust
+  use({'simrat39/rust-tools.nvim'})
+  use({'rust-lang/rust.vim'})
+
+  -- ALE for linting and formatting
+  use({'dense-analysis/ale'})
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()

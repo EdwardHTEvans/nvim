@@ -6,14 +6,14 @@ map("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
 
 -- open new terminal in vsplit
 map("n", "<C-n>", ":vsp | terminal<CR>i", opts)
+-- exit terminal
+map("t", "<C-n>", "<C-\\><C-n>:q<CR>", opts)
+map("t", "<ESC>", "<C-\\><C-n>", opts)
 
 -- fuzzy search for files
 map("n", "ff", ":Telescope find_files<CR>", opts)
 map("n", "fg", ":Telescope live_grep<CR>", opts)
 map("n", "fs", ":Telescope grep_string<CR>", opts)
-
--- exit terminal
-map("t", "<Esc>", [[<C-\><C-n>]], opts)
 
 -- resize window
 map("n", "<C-S-Up>", ":resize -1<CR>", opts)
@@ -57,24 +57,14 @@ map("x", "<C-c>", "y", opts)
 map("x", "<C-x>", "d", opts)
 map("x", "<C-x>", "d", opts)
 
-map("n", "<C-c>", "yy", opts)
-map("n", "<C-v>", "P", opts)
-map("n", "<C-z>", "u", opts)
-map("i", "<C-v>", "<Esc>P", opts)
-map("i", "<C-z>", "<Esc>u", opts)
+map("n", "<C-S-c>", "yy", opts)
+map("n", "<C-S-v>", "P", opts)
+map("n", "<C-S-z>", "u", opts)
+map("i", "<C-S-v>", "<Esc>P", opts)
+map("i", "<C-S-z>", "<Esc>u", opts)
 
 map("n", "<C-A-Up>", "guaw", opts)
 map("n", "<C-A-Down>", "gUaw", opts)
-
-map("n", "<A-f>", ":lua require('conform').format()<CR>", opts)
-
-vim.keymap.set({ "n", "v" }, "<leader>l", function()
-	conform.format({
-		lsp_fallback = true,
-		async = false,
-		timeout_ms = 500,
-	})
-end, { desc = "Format file or range (in visual mode)" })
 
 vim.api.nvim_create_user_command("Debug", function()
 	require("dap").continue()
