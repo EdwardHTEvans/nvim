@@ -66,19 +66,3 @@ map("i", "<C-S-z>", "<Esc>u", opts)
 map("n", "<C-A-Up>", "guaw", opts)
 map("n", "<C-A-Down>", "gUaw", opts)
 
-vim.api.nvim_create_user_command("Debug", function()
-	require("dap").continue()
-end, {})
-
--- lsp hotkeys
---   added on attach
-
--- dap hotkeys
-map("n", "<C-A-b>", ":lua require('dap').toggle_breakpoint()<CR>", opts)
-map("n", "<C-A-n>", ":lua require('dap').step_over()<CR>", opts)
-map("n", "<C-A-m>", ":lua require('dap').step_into()<CR>", opts)
-map("n", "<C-A-j>", ":lua require('dap').step_out()<CR>", opts)
-map("n", "<C-A-k>", ":lua require('dap').repl.open()<CR>", opts)
-map("n", "<C-A-l>", ":lua require('dap').repl.close()<CR>", opts)
-map("n", "<C-A-c>", ":lua require('dap').continue()<CR>", opts)
-map("n", "<C-A-v>", ":lua require('dap').pause()<CR>", opts)

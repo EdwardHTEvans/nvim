@@ -37,7 +37,7 @@ vim.g.rustfmt_autosave = 1
 
 require("plugins")
 
--- setup nvim-tree with options
+-- nvim-tree
 require("nvim-tree").setup({
 	sort = {
 		sorter = "case_sensitive",
@@ -51,6 +51,11 @@ require("nvim-tree").setup({
 	filters = {
 		dotfiles = true,
 	},
+	git = {
+		enable = true,
+		ignore = false,
+		timeout = 400,
+	},
 })
 
 -- cmp
@@ -62,15 +67,16 @@ local luasnip_status, luasnip = pcall(require, "luasnip")
 if not luasnip_status then
 	return
 end
+
 require("luasnip/loaders/from_vscode").lazy_load()
 vim.opt.completeopt = "menu,menuone,noselect"
 cmp.setup({
-	snippet = {
+  snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
 		end,
 	},
-	mapping = cmp.mapping.preset.insert({
+  mapping = cmp.mapping.preset.insert({
 		["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
 		["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -79,7 +85,7 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping.abort(), -- close completion window
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	}),
-	-- sources for autocompletion
+  -- sources for autocompletion
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" }, -- LSP
 		{ name = "luasnip" }, -- snippets
@@ -98,6 +104,7 @@ local function on_attach(client, bufnr)
 end
 
 lspconfig = require("lspconfig")
+
 lspconfig["clangd"].setup({
   on_attach = on_attach,
   root_dir = function()
@@ -105,6 +112,7 @@ lspconfig["clangd"].setup({
   end,
   capabilities = capabilities
 })
+
 lspconfig["vhdl_ls"].setup({
   on_attach = on_attach,
   root_dir = function()
@@ -112,78 +120,16 @@ lspconfig["vhdl_ls"].setup({
   end,
   capabilities = capabilities
 })
+
 lspconfig["rust_analyzer"].setup({})
 
--- dap
-local dap = require("dap")
-dap.adapters.cppdbg = {
-	id = "cppdbg",
-	type = "executable",
-	command = "/home/e.evans/.vscode/extensions/ms-vscode.cpptools-1.19.9-linux-x64/debugAdapters/bin/OpenDebugAD7",
-}
-
-dap.configurations.cpp = {
-	{
-		name = "Launch file",
-		type = "cppdbg",
-		request = "launch",
-		program = function()
-			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-		end,
-		cwd = "${workspaceFolder}",
-		stopAtEntry = true,
-		setupCommands = {
-			{
-				text = "-enable-pretty-printing",
-				description = "enable pretty printing",
-				ignoreFailures = false,
-			},
-		},
-	},
-	{
-		name = "Attach to gdbserver :1234",
-		type = "cppdbg",
-		request = "launch",
-		MIMode = "gdb",
-		miDebuggerServerAddress = "localhost:1234",
-		miDebuggerPath = "/usr/bin/gdb",
-		cwd = "${workspaceFolder}",
-		program = function()
-			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-		end,
-	},
-}
-
-dap.configurations.c = {
-	{
-		name = "Launch file",
-		type = "cppdbg",
-		request = "launch",
-		program = function()
-			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-		end,
-		cwd = "${workspaceFolder}",
-		stopAtEntry = true,
-		setupCommands = {
-			{
-				text = "-enable-pretty-printing",
-				description = "enable pretty printing",
-				ignoreFailures = false,
-			},
-		},
-	},
-	{
-		name = "Attach to gdbserver :1234",
-		type = "cppdbg",
-		request = "launch",
-		MIMode = "gdb",
-		miDebuggerServerAddress = "localhost:1234",
-		miDebuggerPath = "/usr/bin/gdb",
-		cwd = "${workspaceFolder}",
-		program = function()
-			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-		end,
-	},
+local telescope = require('telescope')
+telescope.setup {
+  pickers = {
+    find_files = {
+      hidden = true
+    }
+  }
 }
 
 -- hotkeys
