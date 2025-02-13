@@ -1,3 +1,5 @@
+require("plugins")
+
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -18,24 +20,22 @@ vim.opt.relativenumber = true
 vim.cmd("colorscheme catppuccin-mocha")
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "rust",
-    callback = function()
-        vim.opt_local.tabstop = 2
-        vim.opt_local.shiftwidth = 2
-        vim.opt_local.expandtab = true
-    end,
+	pattern = "rust",
+	callback = function()
+		vim.opt_local.tabstop = 2
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.expandtab = true
+	end,
 })
 
-vim.g.ale_fixers = {
-    rust = {'rustfmt'},
-}
-vim.g.ale_linters = {
-    rust = {'cargo'},
-}
-
-vim.g.rustfmt_autosave = 1
-
-require("plugins")
+-- vim.g.ale_fixers = {
+-- 	rust = { "rustfmt" },
+-- }
+-- vim.g.ale_linters = {
+-- 	rust = { "cargo" },
+-- }
+--
+-- vim.g.rustfmt_autosave = 1
 
 -- nvim-tree
 require("nvim-tree").setup({
@@ -71,12 +71,12 @@ end
 require("luasnip/loaders/from_vscode").lazy_load()
 vim.opt.completeopt = "menu,menuone,noselect"
 cmp.setup({
-  snippet = {
+	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
 		end,
 	},
-  mapping = cmp.mapping.preset.insert({
+	mapping = cmp.mapping.preset.insert({
 		["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
 		["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -85,7 +85,7 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping.abort(), -- close completion window
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	}),
-  -- sources for autocompletion
+	-- sources for autocompletion
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" }, -- LSP
 		{ name = "luasnip" }, -- snippets
@@ -96,42 +96,62 @@ cmp.setup({
 
 -- lsp
 local function on_attach(client, bufnr)
-    local opts = { noremap = true, silent = true }
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	local opts = { noremap = true, silent = true }
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 end
 
 lspconfig = require("lspconfig")
 
 lspconfig["clangd"].setup({
-  on_attach = on_attach,
-  root_dir = function()
-    return vim.fn.getcwd()
-  end,
-  capabilities = capabilities
+	on_attach = on_attach,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end,
+	capabilities = capabilities,
 })
 
 lspconfig["vhdl_ls"].setup({
-  on_attach = on_attach,
-  root_dir = function()
-    return vim.fn.getcwd()
-  end,
-  capabilities = capabilities
+	on_attach = on_attach,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end,
+	capabilities = capabilities,
 })
 
 lspconfig["rust_analyzer"].setup({})
 
-local telescope = require('telescope')
-telescope.setup {
-  pickers = {
-    find_files = {
-      hidden = true
-    }
-  }
-}
+local telescope = require("telescope")
+telescope.setup({
+	pickers = {
+		find_files = {
+			hidden = true,
+		},
+	},
+})
+
+-- formatting
+local conform = require("conform")
+conform.setup({
+	formatters_by_ft = {
+		lua = { "stylua" },
+		cpp = { "clang-format" },
+		c = { "clang-format" },
+		vhdl = { "vsg" },
+	},
+})
+
+vim.api.nvim_create_user_command("Format", function()
+	local success = conform.format()
+	local fidget = require("fidget")
+	if success then
+		fidget.notify("File formatted 󰸞")
+	else
+		fidget.notify("File format failed", vim.log.levels.ERROR, { annote = "File format failed" })
+	end
+end, { desc = "format file" })
 
 -- hotkeys
 require("hotkeys")
-

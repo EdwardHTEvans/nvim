@@ -66,3 +66,7 @@ map("i", "<C-S-z>", "<Esc>u", opts)
 map("n", "<C-A-Up>", "guaw", opts)
 map("n", "<C-A-Down>", "gUaw", opts)
 
+-- format
+map("n", "<C-f>", ":Format<CR>", opts)
+
+
